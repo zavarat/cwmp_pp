@@ -27,6 +27,10 @@
 *.lib
 
 # Executables
+cwmp_pp
 *.exe
 *.out
 *.app
+
+# vim backups and temporaries
+*.swp
