@@ -1,34 +1,42 @@
+// library headers
 #include <iostream>
 #include <cstdint>      // fixed length ints
 #include <stdexcept>    // runtime_error
 #include <memory>       // unique_ptr
 #include <evhttp.h>
 
-int start_http_server();
+// my own headers
+#include "cwmp_config.h"
+
+int start_http_server( const cwmp_pp::basic_config & cfg );
 
 int main(int argrc, const char ** argv)
 {
     std::cout << "CWMP_pp start" << std::endl;
     // restore data from last launch
+
     // get ACS data from config
+    cwmp_pp::basic_config cfg;
     
     // start http server
-    start_http_server(); 
+    start_http_server(cfg); 
 
     // init event_engine 
     std::cout << "CWMP_pp finish" << std::endl;
     return 0;
 }
 
-int start_http_server()
+int start_http_server( const cwmp_pp::basic_config & cfg )
 {
     using namespace std;
     using server_sp = unique_ptr<evhttp, decltype(&evhttp_free)> ;
     try {
         if( !event_init() ) throw( runtime_error("Failed to init libevent") ) ;
-        char const srv_addr[] = "127.0.0.1" ; // change to config
-        uint16_t srv_port     = 5555        ; // -=-
-        server_sp server( evhttp_start(srv_addr, srv_port), &evhttp_free );
+
+        // safely allocating new server object
+        server_sp server( evhttp_start( cfg.acs_addr().c_str(), cfg.acs_port() ), 
+                          &evhttp_free );
+
         if( !server ) throw( runtime_error("Failed to init http server") ) ;
 
         // on request action

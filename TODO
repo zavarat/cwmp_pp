@@ -1,8 +1,11 @@
-- make single-thread HTTP-server according to from https://habrahabr.ru/post/217437/
--- use config file, return if not exist
+- use config file, return if not exist
+-- add implementation of config_file's load and save 
 -- add default_config to repository
 - add most strict compile rules
 - send predefined inform message to ACS
 - make initial inform
 - get and parse ACS response
 - make right .a files dependency in main Makefile
+- make installation notes in readme
+- add validity checks to config class constructor
+- set config filename from main arg

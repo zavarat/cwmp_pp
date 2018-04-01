@@ -1,3 +1,6 @@
 [submodule "libevent/libevent_ext"]
 	path = libevent/libevent_ext
 	url = https://github.com/libevent/libevent.git
+[submodule "program_options"]
+	path = program_options
+	url = https://github.com/boostorg/program_options.git
