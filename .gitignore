@@ -34,3 +34,6 @@ cwmp_pp
 
 # vim backups and temporaries
 *.swp
+
+# libevent cmake generataed files
+libevent/*

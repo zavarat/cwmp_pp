@@ -1,2 +1,8 @@
-- add source code from https://habrahabr.ru/post/217437/
+- make single-thread HTTP-server according to from https://habrahabr.ru/post/217437/
+-- use config file, return if not exist
+-- add default_config to repository
 - add most strict compile rules
+- send predefined inform message to ACS
+- make initial inform
+- get and parse ACS response
+- make right .a files dependency in main Makefile
