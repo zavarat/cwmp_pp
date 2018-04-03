@@ -4,7 +4,8 @@
 #include <cstdint> // fixed length ints
 #include <string>
 
-#define   DEFAULT_ACS_ADDR "127.0.0.1" 
+#define   DEFAULT_ACS_ADDR      "127.0.0.1" 
+#define   DEFAULT_CONFIG_FNAME  "cwmp_config"
 
 namespace cwmp_pp {
 
@@ -32,7 +33,14 @@ class basic_config
 
 class config_file : public basic_config
 {
+    private:
+        std::string filename;
     public:
+        config_file(const std::string & fname) : filename{fname} { load(); }
+        config_file() : config_file(DEFAULT_CONFIG_FNAME) {}
+        void load();
+        void save() const;
+        ~config_file() { try{ save(); } catch(...) {} }
 };
 
 } // namespace cwmp_pp
