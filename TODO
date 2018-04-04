@@ -1,6 +1,4 @@
 - use config file, return if not exist
--- move boost libs into separate directory "boost"
--- add boost/config submodule
 -- add implementation of config_file's load and save 
 -- add default_config to repository
 - add most strict compile rules
@@ -11,3 +9,5 @@
 - make installation notes in readme
 - add validity checks to config class constructor
 - set config filename from main arg
+- add preparing boost to Makefile's kind of 'prepare' scenario
+- makefile to check if cmake is installed
