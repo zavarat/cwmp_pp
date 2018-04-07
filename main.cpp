@@ -4,25 +4,30 @@
 #include <stdexcept>    // runtime_error
 #include <memory>       // unique_ptr
 #include <evhttp.h>
+#include <signal.h>     // sigaction
 
 // my own headers
 #include "cwmp_config.h"
 
-int start_http_server( const cwmp_pp::basic_config & cfg );
+int  start_http_server( const cwmp_pp::basic_config & cfg );
+void cwmp_event_dispatch();
+static void sigint_handler( int dummy );
+static inline void sigint_init();
+static inline void sigint_deinit();
 
 int main(int argrc, const char ** argv)
 {
     std::cout << "CWMP_pp start" << std::endl;
-    // restore data from last launch
-
+    
     // get ACS data from config
     cwmp_pp::config_file   cfg_f;
     cwmp_pp::basic_config& cfg = cfg_f;
-    
+
     // start http server
     start_http_server(cfg); 
 
     // init event_engine 
+
     std::cout << "CWMP_pp finish" << std::endl;
     return 0;
 }
@@ -50,11 +55,44 @@ int start_http_server( const cwmp_pp::basic_config & cfg )
         };
         
         evhttp_set_gencb( server.get(), on_req, nullptr );
-        if( event_dispatch() == -1 ) 
-            throw( runtime_error("Failed to run message loop") ) ;
+        cwmp_event_dispatch();
         return 0; // we are happy and little bit sad that all's over
     }
     catch( exception& err ) { cerr << "Error: " << err.what() << endl; }
     catch( ... ) { cerr << "Unknown exception" << endl; }
     return -1; // we're here only if catched something
+}
+
+void cwmp_event_dispatch()
+{
+    sigint_init();
+    try {
+        if( event_dispatch() == -1 ) 
+            throw( std::runtime_error("Failed to run message loop") ) ;
+    }
+    catch(...) { sigint_deinit(); throw; }
+    sigint_deinit();
+}
+
+static void sigint_handler( int dummy )
+{
+    event_loopbreak();
+}
+
+static inline void sigint_init()
+{
+    struct sigaction sig_handle;
+    sig_handle.sa_handler = sigint_handler;
+    sigemptyset( &sig_handle.sa_mask );
+    sig_handle.sa_flags = 0; 
+    sigaction(SIGINT, &sig_handle, NULL);
+}
+
+static inline void sigint_deinit()
+{
+    struct sigaction sig_handle;
+    sig_handle.sa_handler = SIG_DFL;
+    sigemptyset( &sig_handle.sa_mask );
+    sig_handle.sa_flags = 0; 
+    sigaction(SIGINT, &sig_handle, NULL);
 }

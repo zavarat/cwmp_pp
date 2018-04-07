@@ -1,7 +1,4 @@
 - use config file, return if not exist
--- add implementation of config_file's load and save 
---- consider boost options for save implementations
--- add default_config to repository
 -- add setting default options if no presence in config file
 - add most strict compile rules
 - send predefined inform message to ACS
@@ -16,3 +13,4 @@
 - move something to private form config_file::load
 - avoid narrowing in config_file::set_member
 - test out loading from config file with any kind of erroneous input
+- inline config_file methods if needed

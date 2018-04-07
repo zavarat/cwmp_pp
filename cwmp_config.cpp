@@ -1,8 +1,7 @@
-#include <iostream> // debug
 #include <fstream> // ifstream
 #include "boost/program_options/parsers.hpp"
-#include "boost/program_options/variables_map.hpp"
-#include "boost/any.hpp"
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/ini_parser.hpp>
 #include "cwmp_config.h"
 
 namespace cwmp_pp
@@ -44,6 +43,11 @@ void config_file::load()
 
 void config_file::save() const
 {
+    using boost::property_tree::ptree;
+    ptree pt;
+    pt.add( ACS_ADDR, acs_addr_in );
+    pt.add( ACS_PORT, acs_port_in );
+    write_ini( filename, pt );
 }
 
 } // namespace cwmp_pp
