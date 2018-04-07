@@ -16,7 +16,8 @@ int main(int argrc, const char ** argv)
     // restore data from last launch
 
     // get ACS data from config
-    cwmp_pp::basic_config cfg;
+    cwmp_pp::config_file   cfg_f;
+    cwmp_pp::basic_config& cfg = cfg_f;
     
     // start http server
     start_http_server(cfg); 

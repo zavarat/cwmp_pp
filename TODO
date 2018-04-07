@@ -1,13 +1,18 @@
 - use config file, return if not exist
 -- add implementation of config_file's load and save 
+--- consider boost options for save implementations
 -- add default_config to repository
+-- add setting default options if no presence in config file
 - add most strict compile rules
 - send predefined inform message to ACS
 - make initial inform
 - get and parse ACS response
-- make right .a files dependency in main Makefile
 - make installation notes in readme
 - add validity checks to config class constructor
 - set config filename from main arg
 - add preparing boost to Makefile's kind of 'prepare' scenario
 - makefile to check if cmake is installed
+- add checks on possible error conditions in config_file::load and save
+- move something to private form config_file::load
+- avoid narrowing in config_file::set_member
+- test out loading from config file with any kind of erroneous input

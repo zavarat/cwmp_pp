@@ -1,5 +1,6 @@
 CPPFLAGS="-MD"
-CPPFLAGS="-c"
+CPPFLAGS+="-c"
+CPPFLAGS+="-Wfatal-errors"
 INCLUDE="-Ilibevent/libevent_ext/include"
 INCLUDE+="-Ilibevent/include"
 INCLUDE+="-Iboost"
@@ -24,3 +25,5 @@ main: $(OBJS)
 %.o: %.cpp 
 	g++ $(CPPFLAGS) $^
 	
+clean:
+	rm *.o cwmp_pp

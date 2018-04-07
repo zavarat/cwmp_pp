@@ -3,9 +3,13 @@
 
 #include <cstdint> // fixed length ints
 #include <string>
+#include "boost/program_options/variables_map.hpp"
+#include "boost/any.hpp"
 
+#define   DEFAULT_CONFIG_FNAME  "cwmp_config.cfg"
 #define   DEFAULT_ACS_ADDR      "127.0.0.1" 
-#define   DEFAULT_CONFIG_FNAME  "cwmp_config"
+
+namespace po = boost::program_options;
 
 namespace cwmp_pp {
 
@@ -31,10 +35,19 @@ class basic_config
         uint16_t            acs_port() const { return acs_port_in ; }
 };
 
+// option names
+#define ACS_PORT "acs_port"
+#define ACS_ADDR "acs_addr"
+
+using opt_t = po::basic_option<char>;
+using opt_vector = std::vector< opt_t >;
+
 class config_file : public basic_config
 {
     private:
         std::string filename;
+        void set_members_from_var_list( const opt_vector & v );
+        void set_member( const opt_t & opt, int & n );
     public:
         config_file(const std::string & fname) : filename{fname} { load(); }
         config_file() : config_file(DEFAULT_CONFIG_FNAME) {}
