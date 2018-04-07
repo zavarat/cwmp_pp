@@ -1,5 +1,3 @@
-- use config file, return if not exist
--- add setting default options if no presence in config file
 - add most strict compile rules
 - send predefined inform message to ACS
 - make initial inform

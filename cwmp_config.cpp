@@ -18,10 +18,10 @@ void config_file::set_member( const opt_t & opt, int & n )
         case -1: // order mismatch: walk through all possible options (unlikely)
         case  0: 
             if(opt.string_key==ACS_ADDR) {acs_addr_in=opt.value[0]; break;} 
-            else n=-1;
+            else n=-1; __attribute__((fallthrough));
         case  1: 
             if(opt.string_key==ACS_PORT) {acs_port_in=stoi(opt.value[0]); break;} 
-            else n=-1;
+            else n=-1; __attribute__((fallthrough));
     }
     if( n >= 0 ) ++n;
 }
