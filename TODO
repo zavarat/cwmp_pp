@@ -1,6 +1,6 @@
-- add most strict compile rules
-- send predefined inform message to ACS
-- make initial inform
+- make initial inform as text
+-- configure Makefile to build pugixml
+- send inform message to ACS
 - get and parse ACS response
 - make installation notes in readme
 - add validity checks to config class constructor
