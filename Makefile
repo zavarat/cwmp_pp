@@ -11,6 +11,7 @@ CPPFLAGS+="-pedantic"
 CPPFLAGS+="-Werror"
 INCLUDE="-Ilibevent/libevent_ext/include"
 INCLUDE+="-Ilibevent/include"
+INCLUDE+="-Ipugixml/src"
 INCLUDE+="-Iboost"
 OBJS=main.o
 OBJS+=cwmp_config.o

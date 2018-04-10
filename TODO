@@ -1,7 +1,11 @@
 - make initial inform as text
 -- configure Makefile to build pugixml
+-- parse inform.xml
+-- fill it with configuration info
+--- implement simple cpe.datamodel and make it lower priority than config info
+--- print initial inform to stdout
 - send inform message to ACS
-- get and parse ACS response
+- get and parse ACS inform response
 - make installation notes in readme
 - add validity checks to config class constructor
 - set config filename from main arg
@@ -12,3 +16,5 @@
 - avoid narrowing in config_file::set_member
 - test out loading from config file with any kind of erroneous input
 - inline config_file methods if needed
+- inplement sw_version to depend on build data;
+- decrease set_member code

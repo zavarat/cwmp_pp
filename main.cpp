@@ -5,6 +5,7 @@
 #include <memory>       // unique_ptr
 #include <evhttp.h>
 #include <signal.h>     // sigaction
+#include "pugixml.hpp"
 
 // my own headers
 #include "cwmp_config.h"
@@ -22,6 +23,9 @@ int main(int argrc, const char ** argv)
     // get ACS data from config
     cwmp_pp::config_file   cfg_f;
     cwmp_pp::basic_config& cfg = cfg_f;
+
+    // prepare initial inform
+    // prepare_inform();
 
     // start http server
     start_http_server(cfg); 
@@ -96,3 +100,10 @@ static inline void sigint_deinit()
     sig_handle.sa_flags = 0; 
     sigaction(SIGINT, &sig_handle, NULL);
 }
+
+/*void prepare_inform()
+{
+    using namespace pugi;
+    xml_document doc;
+    xml_parse_result res = doc.load_file("xmp_templates/inform.xml");
+}*/
